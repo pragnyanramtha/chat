@@ -839,7 +839,7 @@ defineExpose({ setMessage, toggleReasoning, setReasoningEffort, toggleSearch, $e
     width: 100%;
     margin-left: 0;
     max-width: 100%;
-    padding: 8px 10px 0;
+    padding: 10px 0;
   }
   
   .chat-textarea {
