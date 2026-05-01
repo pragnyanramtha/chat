@@ -83,10 +83,6 @@
           :aria-label="isIncognito ? 'Disable incognito mode' : 'Enable incognito mode'">
           <Icon icon="mdi:incognito" width="20" height="20" />
         </button>
-        <button v-if="!parameterConfigOpen" class="action-toggle parameter-config-toggle"
-          @click="$emit('toggle-parameter-config')" aria-label="Model parameters">
-          <Icon icon="material-symbols:tune" width="20" height="20" />
-        </button>
       </div>
     </div>
   </div>
@@ -143,14 +139,10 @@ const props = defineProps({
   messages: {
     type: Array,
     default: () => []
-  },
-  parameterConfigOpen: {
-    type: Boolean,
-    default: false
   }
 });
 
-const emit = defineEmits(['model-selected', 'toggle-incognito', 'toggle-parameter-config']);
+const emit = defineEmits(['model-selected', 'toggle-incognito']);
 
 // Get the current route
 const route = useRoute();

@@ -8,8 +8,6 @@
         @reload-settings="settingsManager.loadSettings" @open-settings="openSettingsPanel('general')" />
       <!-- Opens to General tab -->
     </Suspense>
-    <ParameterConfigPanel :is-open="parameterConfigPanelOpen" :settings-manager="settingsManager"
-      @close="parameterConfigPanelOpen = false" @save="handleParameterConfigSave" />
     <!--
       Restructured layout:
       - app-container: Main flex container with sidebar
@@ -17,13 +15,12 @@
       - NuxtPage: Takes full width with internal max-width constraint (contains page-specific content)
     -->
     <div class="main-container"
-      :class="{ 'sidebar-open': sidebarOpen, 'parameter-config-open': parameterConfigPanelOpen }">
+      :class="{ 'sidebar-open': sidebarOpen }">
       <TopBar :is-scrolled-top="isScrolledTop" :selected-model-name="selectedModelName"
         :selected-model-id="selectedModelId" :toggle-sidebar="toggleSidebar" :sidebar-open="sidebarOpen"
         :is-incognito="isIncognito" :show-incognito-button="true" :messages="messages"
-        :parameter-config-open="parameterConfigPanelOpen" @model-selected="handleModelSelect"
-        @toggle-incognito="toggleIncognito"
-        @toggle-parameter-config="parameterConfigPanelOpen = !parameterConfigPanelOpen" />
+        @model-selected="handleModelSelect"
+        @toggle-incognito="toggleIncognito" />
 
       <!-- Chat panel from the current page -->
       <slot />
@@ -64,7 +61,6 @@ import { useGlobalIncognito } from '~/composables/useGlobalIncognito';
 
 import AppSidebar from '~/components/AppSidebar.vue'
 import SettingsPanel from '~/components/SettingsPanel.vue'
-import ParameterConfigPanel from '~/components/ParameterConfigPanel.vue'
 import TopBar from '~/components/TopBar.vue'
 
 // Inject Vercel's analytics and performance insights
@@ -96,7 +92,6 @@ const route = useRoute(); // Get current route
 const router = useRouter();
 
 const sidebarOpen = ref(null); // null = indeterminate, will be set in onMounted based on screen width
-const parameterConfigPanelOpen = ref(false);
 const isSettingsOpen = ref(false);
 const settingsInitialTab = ref('general'); // Controls which tab opens in settings panel
 
@@ -160,12 +155,6 @@ function openSettingsPanel(tabKey = 'general') {
   isSettingsOpen.value = true;
 }
 
-function handleParameterConfigSave(params) {
-  console.log("Parameter config saved:", params);
-  // The settings are already saved in the ParameterConfigPanel component
-  // This function can be used for any additional actions needed after saving
-}
-
 function handleDeleteConversation(id) {
   // This will be handled in the page components, but we can emit an event
   console.log("Delete conversation:", id);
@@ -207,9 +196,6 @@ function sendMessage(message, originalMessage = null) {
 
 // Toggle main sidebar
 whenever( () => mod.value && keys.b.value && !keys.alt.value, () => { toggleSidebar(); });
-
-// Toggle secondary sidebar
-whenever( () => mod.value && keys.alt.value && keys.b.value, () => { parameterConfigPanelOpen.value = !parameterConfigPanelOpen.value; });
 
 // Create new chat
 whenever( () => mod.value && keys.alt.value && keys.n.value, () => { handleNewConversation(); });
@@ -253,15 +239,6 @@ whenever( () => mod.value && keys.alt.value && keys.i.value, () => { toggleIncog
 @media (min-width: 950px) {
   .main-container.sidebar-open {
     margin-left: 280px;
-  }
-
-  .main-container.parameter-config-open {
-    margin-right: 300px;
-  }
-
-  .main-container.sidebar-open.parameter-config-open {
-    margin-left: 280px;
-    margin-right: 300px;
   }
 }
 
@@ -326,8 +303,7 @@ whenever( () => mod.value && keys.alt.value && keys.i.value, () => { toggleIncog
   }
 
   /* Use overlay positioning for mobile panels */
-  .sidebar-open .main-container,
-  .parameter-config-open .main-container {
+  .sidebar-open .main-container {
     transform: none;
     margin: 0;
   }

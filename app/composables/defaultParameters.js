@@ -7,7 +7,7 @@ export const DEFAULT_PARAMETERS = {
   temperature: 1.0,
   top_p: 0.95,
   seed: null,
-  max_tokens: 16384,
+  max_tokens: 65536,
   grounding: false
 };
 

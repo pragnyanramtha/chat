@@ -15,7 +15,6 @@ const emit = defineEmits([
   "reloadSettings",
   "toggleDark",
   "closeSidebar",
-  "openSettings",
 ]);
 const props = defineProps(["currConvo", "messages", "isDark", "isOpen"]);
 
@@ -83,9 +82,6 @@ function handleNewConversation() {
           <Icon icon="material-symbols:side-navigation" width="24" height="24" />
         </button>
         <span class="sidebar-title">Chats</span>
-        <button class="settings-button" aria-label="Open settings" @click="$emit('openSettings')">
-          <Icon icon="material-symbols:settings" width="24" height="24" />
-        </button>
       </div>
       <button id="new-chat-button" class="new-chat-btn" @click="handleNewConversation">
         <span>New Chat</span>
@@ -567,25 +563,6 @@ function handleNewConversation() {
 .sidebar-overlay.active {
   opacity: 1;
   pointer-events: auto;
-}
-
-.settings-button {
-  border-radius: 8px;
-  height: 36px;
-  width: 36px;
-  transition: background 0.18s;
-  flex-shrink: 0;
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.settings-button:hover {
-  background: var(--btn-hover);
 }
 
 .close-button {
