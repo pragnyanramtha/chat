@@ -638,8 +638,8 @@ defineExpose({ setMessage, toggleReasoning, setReasoningEffort, toggleSearch, $e
   background: var(--bg); 
   border-radius: 20px 20px 0 0;
   bottom: 0px;
-  width: calc(100% + 48px);
-  margin-left: -24px;
+  width: calc(100% + 100px);
+  margin-left: -50px;
   padding: 0;
   box-sizing: border-box;
   z-index: 10;
