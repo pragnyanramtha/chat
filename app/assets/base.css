@@ -85,6 +85,10 @@
   --surface: #111111;
   --elevated-surface: #000000;
   
+  /* Hover effects - subtle on pure black */
+  --btn-hover: rgba(255, 255, 255, 0.05);
+  --btn-hover-2: rgba(255, 255, 255, 0.08);
+  
   /* Text - pure white for max contrast */
   --text-primary: #ffffff;
   --text-secondary: #a3a3a6;
@@ -466,8 +470,16 @@ body {
   background-color: var(--btn-hover);
 }
 
+.dark .chat-widget-header:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
 .chat-widget-header.open {
   background-color: var(--btn-hover);
+}
+
+.dark .chat-widget-header.open {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .chat-widget-icon {
@@ -557,6 +569,12 @@ body {
 .chat-widget .reasoning-content-area .reasoning-content {
   color: var(--text-secondary);
   font-size:0.9rem;
+  opacity: 0.85;
+}
+
+.chat-widget .reasoning-content-area .reasoning-content {
+  color: var(--text-secondary);
+  font-size:0.9rem;
 }
 
 /* Chat widget details - outer container */
@@ -595,7 +613,8 @@ body {
 }
 
 .dark .chat-widget .search-result-item:hover {
-  background: var(--bg-secondary);
+  background: #000000;
+  border-color: var(--primary);
 }
 
 .chat-widget .search-result-link {
@@ -643,7 +662,8 @@ body {
 }
 
 .dark .chat-widget .web-crawl-result-item:hover {
-  background: var(--bg-secondary);
+  background: #000000;
+  border-color: var(--primary);
 }
 
 .chat-widget .web-crawl-result-link {
