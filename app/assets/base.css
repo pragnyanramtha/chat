@@ -83,7 +83,7 @@
   /* Pure black theme - #000000 background */
   --bg: #000000;
   --surface: #111111;
-  --elevated-surface: #1a1a1a;
+  --elevated-surface: #000000;
   
   /* Text - pure white for max contrast */
   --text-primary: #ffffff;
@@ -542,13 +542,30 @@ body {
   z-index: 1;
 }
 
+.dark .chat-widget-details {
+  background: #000000;
+}
+
 /* Reasoning content area */
 .chat-widget .reasoning-content-area {
   padding-top: 10px;
+  background: #000000;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .chat-widget .reasoning-content-area .reasoning-content {
   color: var(--text-secondary);
+  font-size:0.9rem;
+}
+
+/* Chat widget details - outer container */
+.dark .chat-widget-details {
+  background: #000000;
+}
+
+.chat-widget .reasoning-content-area .reasoning-content {
+  color: var(--text-primary);
   font-size: 0.9rem;
 }
 
@@ -563,13 +580,13 @@ body {
 .chat-widget .search-result-item {
   border-radius: 8px;
   padding: 12px;
-  background: var(--bg);
+  background: #000000;
   border: 1px solid var(--border);
   transition: all 0.2s ease;
 }
 
 .dark .chat-widget .search-result-item {
-  background: var(--elevated-surface);
+  background: #000000;
 }
 
 .chat-widget .search-result-item:hover {
@@ -611,13 +628,13 @@ body {
 .chat-widget .web-crawl-result-item {
   border-radius: 8px;
   padding: 12px;
-  background: var(--bg);
+  background: #000000;
   border: 1px solid var(--border);
   transition: all 0.2s ease;
 }
 
 .dark .chat-widget .web-crawl-result-item {
-  background: var(--elevated-surface);
+  background: #000000;
 }
 
 .chat-widget .web-crawl-result-item:hover {
@@ -664,6 +681,9 @@ body {
 /* Tool arguments */
 .chat-widget .tool-args {
   padding-top: 10px;
+  background: #000000;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .chat-widget .tool-args pre {

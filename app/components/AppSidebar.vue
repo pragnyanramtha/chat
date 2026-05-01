@@ -22,9 +22,7 @@ const props = defineProps(["currConvo", "messages", "isDark", "isOpen"]);
 const router = useRouter();
 const route = useRoute();
 
-// Use settings to check for API key
-const settingsManager = useSettings();
-const hasApiKey = computed(() => !!settingsManager.settings.custom_api_key);
+// API key is now configured server-side via .env
 
 // Use the conversations list composable
 const {
@@ -214,17 +212,6 @@ function handleNewConversation() {
         </div>
       </div>
       
-      <!-- API Key Warning -->
-      <div v-if="!hasApiKey" class="api-key-warning">
-        <Icon icon="material-symbols:warning" width="20" height="20" />
-        <div class="warning-content">
-          <span class="warning-title">API Key Required</span>
-          <span class="warning-text">Add your API key in settings</span>
-        </div>
-        <button class="warning-button" @click="$emit('openSettings')" aria-label="Open settings">
-          <Icon icon="material-symbols:arrow-forward" width="18" height="18" />
-        </button>
-      </div>
     </div>
   </div>
 </template>
@@ -323,6 +310,10 @@ function handleNewConversation() {
   font-size: 0.9em;
   font-family: inherit;
   transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.dark .search-input {
+  background: #000000;
 }
 
 .search-input::placeholder {

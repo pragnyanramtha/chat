@@ -1365,16 +1365,20 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   margin-bottom: 12px;
   width: 100%;
   max-width: 800px;
+  background: #000000;
+  border-radius: 12px;
+  padding: 2px;
 }
 
 
 /* Part Group Container Styling - for grouping adjacent reasoning and tool_group parts */
 .part-group-container {
-  border: 2px solid var(--border); /* Thick border for the container */
+  border: 2px solid #000000; /* Pure black border for the container */
   border-radius: 12px; /* Keep border radius for the container */
   overflow: hidden; /* Contain the individual parts within the container */
   margin: 12px 0 0; /* Add some spacing between groups */
   position: relative;
+  background: #000000;
 }
 
 /* Each inside-group needs position:relative for its ::after to position correctly */
@@ -1390,7 +1394,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   top: calc(100% - 6px); /* Start 6px before the bottom edge */
   height: 12px; /* 6px in this element + 6px into the next = centered */
   width: 0;
-  border-left: 1px solid var(--border);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 1;
   pointer-events: none;
   opacity: 1;
