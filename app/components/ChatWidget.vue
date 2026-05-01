@@ -1,6 +1,7 @@
 <template>
   <div class="chat-widget">
     <div
+      v-if="type !== 'reasoning'"
       class="chat-widget-header" :class="{ open: isOpen }"
       @click="isOpen = !isOpen"
     >
@@ -45,7 +46,7 @@
       </div>
     </div>
 
-    <div v-show="isOpen" class="chat-widget-details">
+    <div v-show="isOpen || type === 'reasoning'" class="chat-widget-details">
       <!-- Reasoning content -->
       <div v-if="type === 'reasoning'" class="reasoning-content-area">
         <div class="reasoning-content markdown-content" v-html="renderedContent"></div>
