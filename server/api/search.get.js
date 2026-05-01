@@ -3,13 +3,14 @@ import { defineEventHandler, getQuery, getHeader } from 'h3';
 export default defineEventHandler(async (event) => {
     const query = getQuery(event);
     
-    // Get API key from header
-    const apiKey = getHeader(event, 'x-api-key');
+    // Get API key from environment variable
+    const runtimeConfig = useRuntimeConfig(event);
+    const apiKey = runtimeConfig.hackclubApiKey;
     
     if (!apiKey) {
         throw createError({
             statusCode: 401,
-            statusMessage: 'API key is required in X-API-Key header.'
+            statusMessage: 'API key is not configured. Please set NUXT_HACKCLUB_API_KEY in .env file.'
         });
     }
 

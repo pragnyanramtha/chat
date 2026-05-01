@@ -191,19 +191,7 @@ export function useMessagesManager(chatPanel) {
 
     if ((!message.trim() && attachments.length === 0) || isLoading.value) return;
 
-    // Check if API key is provided (either user-provided or server-side)
-    const hasApiKey = settingsManager.settings.custom_api_key || (serverConfig.value && serverConfig.value.hasServerApiKey);
-
-    if (!hasApiKey) {
-      const tempAssistantMsg = createAssistantMessage();
-      updateAssistantMessage(tempAssistantMsg, {
-        content: `⚠️ **API Key Required**\n\nPlease add your own API key in Settings → General to use models.`,
-        complete: true,
-        error: true,
-        errorDetails: { name: 'APIKeyRequired', message: 'API key is required to use models' }
-      });
-      return;
-    }
+    // API key is now configured server-side via .env
 
     controller.value = new AbortController();
     isLoading.value = true;

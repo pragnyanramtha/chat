@@ -26,9 +26,7 @@ const userName = ref("");
 const occupation = ref("");
 const customInstructions = ref("");
 
-// API key fields
-const customApiKey = ref("");
-const showApiKey = ref(false);
+// API key fields removed - now using .env only
 
 // --- Constants for Navigation ---
 const navItems = [
@@ -68,7 +66,7 @@ onMounted(async () => {
   customInstructions.value = settingsManager.settings.custom_instructions || "";
   globalMemoryEnabled.value = settingsManager.settings.notebook_memory_enabled === true;
   gptOssLimitTables.value = settingsManager.settings.gpt_oss_limit_tables === true;
-  customApiKey.value = settingsManager.settings.custom_api_key || "";
+  // API key field removed - now using .env only
 
   // Load notebook metadata
   await loadNotebookData();
@@ -114,15 +112,13 @@ async function saveSettings() {
   settingsManager.setSetting("custom_instructions", customInstructions.value);
   settingsManager.setSetting("notebook_memory_enabled", globalMemoryEnabled.value);
   settingsManager.setSetting("gpt_oss_limit_tables", gptOssLimitTables.value);
-  settingsManager.setSetting("custom_api_key", customApiKey.value.trim());
 
   console.log("Saving settings:", {
     user_name: userName.value,
     occupation: occupation.value,
     custom_instructions: customInstructions.value,
     notebook_memory_enabled: globalMemoryEnabled.value,
-    gpt_oss_limit_tables: gptOssLimitTables.value,
-    has_custom_api_key: !!customApiKey.value.trim()
+    gpt_oss_limit_tables: gptOssLimitTables.value
   });
 
   // Save settings and wait for completion before reloading
@@ -201,28 +197,6 @@ function openNotebook() {
                   <SwitchRoot class="switch-root" :modelValue="gptOssLimitTables" @update:modelValue="gptOssLimitTables = $event">
                     <SwitchThumb class="switch-thumb" />
                   </SwitchRoot>
-                </div>
-              </div>
-              <div class="setting-item textarea-item">
-                <div class="setting-info">
-                  <h3>API Key</h3>
-                  <p>Enter your own API key to use models</p>
-                </div>
-                <div class="input-container api-key-container">
-                  <input 
-                    v-model="customApiKey" 
-                    :type="showApiKey ? 'text' : 'password'" 
-                    placeholder="Enter your API key"
-                    class="custom-input api-key-input" 
-                  />
-                  <button 
-                    type="button" 
-                    class="toggle-visibility-btn" 
-                    @click="showApiKey = !showApiKey"
-                    :aria-label="showApiKey ? 'Hide API key' : 'Show API key'"
-                  >
-                    <Icon :icon="showApiKey ? 'material-symbols:visibility-off' : 'material-symbols:visibility'" width="20" height="20" />
-                  </button>
                 </div>
               </div>
             </div>

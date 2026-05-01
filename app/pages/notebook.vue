@@ -143,16 +143,11 @@ async function refreshNotebook() {
   isLoading.value = true;
   
   try {
-    const apiKey = settingsManager.settings?.custom_api_key;
-    if (apiKey) {
-      const result = await forceRunPipeline(apiKey);
-      if (result.success) {
-        await loadNotebookData();
-      } else {
-        error.value = result.error || 'Failed to refresh Notebook';
-      }
+    const result = await forceRunPipeline();
+    if (result.success) {
+      await loadNotebookData();
     } else {
-      error.value = 'Please add an API key in settings to refresh the Notebook';
+      error.value = result.error || 'Failed to refresh Notebook';
     }
   } catch (err) {
     error.value = 'Error refreshing Notebook: ' + err.message;

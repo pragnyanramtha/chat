@@ -40,7 +40,7 @@ class Settings {
       gpt_oss_limit_tables: false, // Whether to limit table usage for GPT-OSS models
 
       // --- API Key Settings ---
-      custom_api_key: '', // User's own API key (required for all API calls)
+      // API key now configured via NUXT_HACKCLUB_API_KEY in .env file
     });
 
     // Add type information for better type safety
@@ -55,7 +55,7 @@ class Settings {
       model_settings: {}, // Default value for model settings
       parameter_config: { ...DEFAULT_PARAMETERS },
       gpt_oss_limit_tables: false, // Default value for GPT-OSS table limiting
-      custom_api_key: '', // Default empty API key (user must provide their own)
+      // API key now configured via NUXT_HACKCLUB_API_KEY in .env file
     };
 
     // Load settings asynchronously

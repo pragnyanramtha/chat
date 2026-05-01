@@ -136,10 +136,9 @@ export async function shouldRunPipeline() {
  * This is the main entry point - call this when app opens
  * Handles resumption if the pipeline was interrupted
  * 
- * @param {string} apiKey - OpenRouter API key
  * @returns {Promise<Object>} Pipeline result
  */
-export async function runNotebookPipeline(apiKey) {
+export async function runNotebookPipeline() {
   // Load current state
   const state = await loadPipelineState();
   
@@ -196,7 +195,7 @@ export async function runNotebookPipeline(apiKey) {
       console.log("Stage 1: Summarizing chats...");
       await savePipelineState({ status: "running", stage: 1, lastRun: new Date().toISOString() });
       
-      const stage1Result = await stage1Summarize(apiKey);
+      const stage1Result = await stage1Summarize();
       
       if (!stage1Result.success) {
         throw new Error(`Stage 1 failed: ${stage1Result.error}`);
@@ -211,7 +210,7 @@ export async function runNotebookPipeline(apiKey) {
     if (currentStage <= 2) {
       console.log("Stage 2: Consolidating Notebook...");
       
-      const stage2Result = await stage2Consolidate(apiKey);
+      const stage2Result = await stage2Consolidate();
       
       if (!stage2Result.success) {
         throw new Error(`Stage 2 failed: ${stage2Result.error}`);
@@ -256,7 +255,7 @@ export async function runNotebookPipeline(apiKey) {
         const summaries = await getSummariesForNotebook();
         if (summaries.length > 0) {
           console.log("Regenerating notebook for stage 3 resumption...");
-          const stage2Result = await stage2Consolidate(apiKey);
+          const stage2Result = await stage2Consolidate();
           if (stage2Result.success) {
             newNotebook = stage2Result.newNotebook;
           }
@@ -308,13 +307,12 @@ export async function runNotebookPipeline(apiKey) {
 }
 
 /**
- * Stage 1: Summarize all chats needing summary
+ * Stage1: Summarize all chats needing summary
  * Runs in parallel batches
  * 
- * @param {string} apiKey - OpenRouter API key
  * @returns {Promise<Object>} Stage result
  */
-async function stage1Summarize(apiKey) {
+async function stage1Summarize() {
   try {
     const chats = await getChatsNeedingSummary();
     
@@ -325,7 +323,7 @@ async function stage1Summarize(apiKey) {
     // Cap at 30 chats per run to avoid overwhelming the API
     const chatsToProcess = chats.slice(0, 30);
     
-    const results = await processChatSummaries(chatsToProcess, apiKey, 5);
+    const results = await processChatSummaries(chatsToProcess, 5);
     
     const successCount = results.filter(r => r.success).length;
     const summaryCount = results.filter(r => r.summary && !r.nothingNotable).length;
@@ -339,13 +337,12 @@ async function stage1Summarize(apiKey) {
 }
 
 /**
- * Stage 2: Consolidate summaries into Notebook
+ * Stage2: Consolidate summaries into Notebook
  * Single API call with capable model
  * 
- * @param {string} apiKey - OpenRouter API key
  * @returns {Promise<Object>} Stage result with newNotebook
  */
-async function stage2Consolidate(apiKey) {
+async function stage2Consolidate() {
   try {
     const [notebook, summaries] = await Promise.all([
       loadNotebook(),
@@ -427,7 +424,6 @@ Write the updated Notebook content.`;
         stream: false,
         temperature: 0.2, // Low temperature for consistency
         max_tokens: 3000,
-        ...(apiKey && { customApiKey: apiKey })
       })
     });
 
@@ -541,11 +537,10 @@ export async function getPipelineStatus() {
 
 /**
  * Forces a pipeline run (for manual trigger)
- * @param {string} apiKey - OpenRouter API key
  * @returns {Promise<Object>} Pipeline result
  */
-export async function forceRunPipeline(apiKey) {
+export async function forceRunPipeline() {
   // Reset state to allow run
   await savePipelineState({ status: "idle", lastRun: null, lastError: null });
-  return runNotebookPipeline(apiKey);
+  return runNotebookPipeline();
 }

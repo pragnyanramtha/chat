@@ -105,10 +105,9 @@ export async function getChatsNeedingSummary() {
  * Uses a cheap, fast model for cost efficiency
  * 
  * @param {Array} messages - Array of conversation messages
- * @param {string} apiKey - OpenRouter API key
  * @returns {Promise<string|null>} Summary text or null on error
  */
-export async function summarizeChat(messages, apiKey) {
+export async function summarizeChat(messages) {
   try {
     // Filter to relevant messages (skip system messages, focus on user/assistant exchange)
     const relevantMessages = messages
@@ -154,7 +153,6 @@ Guidelines:
           }
         ],
         stream: false,
-        ...(apiKey && { customApiKey: apiKey })
       })
     });
 
@@ -181,10 +179,9 @@ Guidelines:
  * 
  * @param {string} existingSummary - Previous summary
  * @param {Array} newMessages - New messages since last summary
- * @param {string} apiKey - OpenRouter API key
  * @returns {Promise<string|null>} Updated summary or null on error
  */
-export async function incrementalSummarize(existingSummary, newMessages, apiKey) {
+export async function incrementalSummarize(existingSummary, newMessages) {
   try {
     const relevantMessages = newMessages
       .filter(m => m.role === "user" || m.role === "assistant")
@@ -233,7 +230,6 @@ Guidelines:
           }
         ],
         stream: false,
-        ...(apiKey && { customApiKey: apiKey })
       })
     });
 
@@ -260,30 +256,28 @@ Guidelines:
  * Runs summaries in parallel with a concurrency limit
  * 
  * @param {Array} chats - Chats needing summary from getChatsNeedingSummary()
- * @param {string} apiKey - OpenRouter API key
  * @param {number} concurrency - Max parallel requests (default 5)
  * @returns {Promise<Array>} Results array
  */
-export async function processChatSummaries(chats, apiKey, concurrency = 5) {
+export async function processChatSummaries(chats, concurrency = 5) {
   const results = [];
   
   // Process in batches to limit concurrency
   for (let i = 0; i < chats.length; i += concurrency) {
     const batch = chats.slice(i, i + concurrency);
     
-    const batchPromises = batch.map(async (chat) => {
-      try {
-        let summary;
-        
-        if (chat.hasExistingSummary && chat.existingSummary && chat.newMessages) {
-          summary = await incrementalSummarize(
-            chat.existingSummary,
-            chat.newMessages,
-            apiKey
-          );
-        } else {
-          summary = await summarizeChat(chat.messages, apiKey);
-        }
+      const batchPromises = batch.map(async (chat) => {
+        try {
+          let summary;
+          
+          if (chat.hasExistingSummary && chat.existingSummary && chat.newMessages) {
+            summary = await incrementalSummarize(
+              chat.existingSummary,
+              chat.newMessages
+            );
+          } else {
+            summary = await summarizeChat(chat.messages);
+          }
 
         if (summary) {
           const lastMessage = chat.messages[chat.messages.length - 1];

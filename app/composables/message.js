@@ -375,8 +375,8 @@ export async function* handleIncomingMessage(
 
     const enabledToolNames = [];
 
-    // Enable Exa search tools if search is enabled
-    if (modelHasToolUse && isSearchEnabled) {
+    // Search tools are always enabled when the model supports tool use
+    if (modelHasToolUse) {
       enabledToolNames.push("search", "getPageContents");
     }
 
@@ -478,9 +478,7 @@ export async function* handleIncomingMessage(
           seed: modelParameters.seed,
           max_tokens: modelParameters.max_tokens,
         }),
-        ...(settings.custom_api_key && {
-          customApiKey: settings.custom_api_key,
-        }),
+        // API key is now configured server-side via .env
       };
 
       // Add reasoning parameters

@@ -51,16 +51,20 @@ const KNOWLEDGE_CUTOFF_REGULAR = `### Knowledge Cutoff
 *   Your knowledge has a cutoff date, and you don't have information on events after that date.
 *   When asked about recent events or information beyond your knowledge cutoff, you should use the available search and web crawling tools to find current information.`;
 
-const SEARCH_TOOLS_AWARENESS = `### Web Search and Page Crawling
-*   You have access to web search and page crawling tools when the user enables them:
+const SEARCH_TOOLS_AWARENESS = `### Web Search and Page Crawling (Always Available)
+*   You always have access to web search and page crawling tools. **Use them proactively and liberally** — do not hesitate.
   - **search**: Search the web for current information, news, or specific topics. Returns a list of search results with titles, URLs, and descriptions.
   - **getPageContents**: Retrieve the full content of specific web pages. Use this after finding relevant URLs via search to get detailed information, or to read a specific document or page.
-*   Use these tools when:
-  - The user asks about recent events or information beyond your knowledge cutoff
-  - You need to verify facts or find current data
-  - The user explicitly asks you to search or look something up
-*   Workflow: First use search to find relevant pages, then use getPageContents on the most promising URLs to get detailed information.
-*   Additionally, the web crawl tool can be used in interesting ways to provide extra information, such as reading PDFs or specific pages.`;
+*   **You MUST use these tools whenever:**
+  - You don't know something or are uncertain about it
+  - The information might be outdated given your knowledge cutoff
+  - The user asks about recent events, news, people, products, prices, or anything time-sensitive
+  - You need to verify a fact before stating it
+  - The user asks you to look something up, find something, or research a topic
+  - You need current data (e.g., stock prices, weather, sports scores, release dates)
+*   **Do NOT rely solely on your training data** when a web search would give a better answer. When in doubt, search.
+*   Typical workflow: First use **search** to find relevant pages, then use **getPageContents** on the most promising URLs to get detailed information. Synthesize and cite your sources clearly.
+*   You can also use **getPageContents** directly to read a specific URL the user shares with you.`;
 
 const MEMORY_AWARENESS_NOTEBOOK = `### Memory Awareness
 *   You maintain a personal Notebook about the user, containing observations about the user's personality, communication style, ongoing projects, and recent & old activity.

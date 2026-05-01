@@ -507,7 +507,7 @@ body {
 }
 
 .dark .chat-widget-header.open {
-  background-color: #000000;
+  background-color: #605956;
 }
 
 .chat-widget-icon {
@@ -613,6 +613,11 @@ body {
 /* Keep reasoning header black when open and on hover */
 .dark .chat-widget-header.open,
 .dark .chat-widget-header.open:hover {
+  background-color: #000000 !important;
+}
+
+/* Reset the earlier rule */
+.dark .chat-widget-header.open {
   background-color: #000000 !important;
 }
 

@@ -82,32 +82,19 @@ class ToolManager {
   }
 
   /**
-   * Get the custom API key from settings
+   * API key is now configured server-side via .env
    */
-  getApiKey() {
-    // Try to get from settings manager if available
-    if (typeof window !== 'undefined') {
-      const settingsManager = useSettings();
-      return settingsManager.settings?.custom_api_key;
-    }
-    return null;
-  }
 
   /**
    * Register default tools
    */
   registerDefaultTools() {
-    // Exa Search Tool - calls server route with API key
+    // Exa Search Tool - calls server route (API key from .env)
     this.registerTool(
       'search',
       async (args) => {
         if (!args.q) {
           throw new Error('Search tool requires a "q" (query) argument');
-        }
-
-        const apiKey = this.getApiKey();
-        if (!apiKey) {
-          throw new Error('API key is required for search');
         }
 
         try {
@@ -116,11 +103,7 @@ class ToolManager {
             numResults: args.numResults || 5
           });
 
-          const response = await fetch(`/api/search?${params.toString()}`, {
-            headers: {
-              'X-API-Key': apiKey
-            }
-          });
+          const response = await fetch(`/api/search?${params.toString()}`);
 
           if (!response.ok) {
             throw new Error(`Search request failed with status ${response.status}`);
@@ -175,29 +158,21 @@ class ToolManager {
       }
     );
 
-    // Exa Page Contents Tool - calls server route with API key
+    // Exa Page Contents Tool - calls server route (API key from .env)
     this.registerTool(
-      'getPageContents',
+      'exa_page_contents',
       async (args) => {
         if (!args.urls || !Array.isArray(args.urls) || args.urls.length === 0) {
-          throw new Error('getPageContents tool requires a "urls" array argument');
-        }
-
-        const apiKey = this.getApiKey();
-        if (!apiKey) {
-          throw new Error('API key is required for page contents');
+          throw new Error('Page contents tool requires a "urls" array with at least one URL');
         }
 
         try {
           const response = await fetch('/api/exa-contents', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'X-API-Key': apiKey
+              'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              urls: args.urls.slice(0, 10) // Limit to 10 URLs
-            })
+            body: JSON.stringify({ urls: args.urls })
           });
 
           if (!response.ok) {

@@ -7,12 +7,8 @@ export default defineEventHandler(async (event) => {
   // Get runtime config
   const runtimeConfig = useRuntimeConfig(event);
 
-  // Extract custom API key from body (user-provided)
-  const customApiKey = body.customApiKey;
-  delete body.customApiKey; // Remove from body before passing to OpenAI
-
-  // Use custom API key from request, or fall back to environment variable
-  const apiKey = customApiKey || runtimeConfig.hackclubApiKey;
+  // Use API key from environment variable
+  const apiKey = runtimeConfig.hackclubApiKey;
 
   if (!apiKey) {
     event.node.res.statusCode = 401;
@@ -20,7 +16,7 @@ export default defineEventHandler(async (event) => {
     event.node.res.end(JSON.stringify({
       error: {
         type: 'authentication_error',
-        message: 'API key is required. Please add your own API key in settings.',
+        message: 'API key is not configured. Please set NUXT_HACKCLUB_API_KEY in .env file.',
         code: 401
       }
     }));

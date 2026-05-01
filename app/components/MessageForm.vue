@@ -589,24 +589,7 @@ defineExpose({ setMessage, toggleReasoning, setReasoningEffort, toggleSearch, $e
             align="start"
             :side-offset="8"
           >
-            <!-- Mobile: Search toggle -->
-            <button
-              v-if="isMobile"
-              type="button"
-              class="popover-toggle-item"
-              :class="{ 'toggle-enabled': isSearchEnabled }"
-              @click="toggleSearch"
-            >
-              <Icon icon="material-symbols:globe" width="20" height="20" />
-              <span class="toggle-label">Search</span>
-              <Icon 
-                v-if="isSearchEnabled" 
-                icon="material-symbols:check" 
-                width="18" 
-                height="18" 
-                class="toggle-status"
-              />
-            </button>
+
 
             <!-- Mobile: Reasoning toggle (simple on/off) -->
             <button 
@@ -672,15 +655,7 @@ defineExpose({ setMessage, toggleReasoning, setReasoningEffort, toggleSearch, $e
           </PopoverContent>
         </PopoverRoot>
 
-        <!-- Desktop: Search toggle button -->
-        <button
-          v-if="!isMobile"
-          type="button" class="feature-button search-toggle-btn"
-          :class="{ 'search-enabled': isSearchEnabled }" @click="toggleSearch"
-          :aria-label="isSearchEnabled ? 'Disable search' : 'Enable search'">
-          <Icon icon="material-symbols:globe" width="22" height="22" />
-          <span class="search-label">Search</span>
-        </button>
+
 
         <!-- Desktop: Reasoning toggle for models that should show a reasoning toggle -->
         <button v-if="!isMobile && selectedModel && shouldShowReasoningToggle && supportsReasoning"
