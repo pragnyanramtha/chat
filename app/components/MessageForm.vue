@@ -589,60 +589,6 @@ defineExpose({ setMessage, toggleReasoning, setReasoningEffort, toggleSearch, $e
             align="start"
             :side-offset="8"
           >
-
-
-            <!-- Mobile: Reasoning toggle (simple on/off) -->
-            <button 
-              v-if="isMobile && selectedModel && shouldShowReasoningToggle && supportsReasoning"
-              type="button"
-              class="popover-toggle-item"
-              :class="{ 'toggle-enabled': isReasoningEnabled }"
-              @click="toggleReasoning"
-            >
-              <Icon icon="tabler:brain" width="20" height="20" />
-              <span class="toggle-label">Reasoning</span>
-              <Icon 
-                v-if="isReasoningEnabled" 
-                icon="material-symbols:check" 
-                width="18" 
-                height="18" 
-                class="toggle-status"
-              />
-            </button>
-
-            <!-- Mobile: Reasoning effort submenu (for models with effort options) -->
-            <DropdownMenuRoot v-if="isMobile && selectedModel && shouldShowEffortSelector">
-              <DropdownMenuTrigger class="popover-toggle-item reasoning-submenu-trigger">
-                <Icon icon="tabler:brain" width="20" height="20" />
-                <span class="toggle-label">{{ reasoningEffort.charAt(0).toUpperCase() + reasoningEffort.slice(1) }}</span>
-                <Icon icon="material-symbols:chevron-right" width="18" height="18" class="submenu-arrow" />
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent class="popover-dropdown reasoning-effort-dropdown" side="right" align="start"
-                :side-offset="8">
-                <div class="dropdown-scroll-container">
-                  <DropdownMenuItem 
-                    v-for="option in reasoningEffortOptions" 
-                    :key="option" 
-                    class="reasoning-effort-item"
-                    :class="{ selected: option === reasoningEffort }" 
-                    @click="() => setReasoningEffort(option)"
-                  >
-                    <span>{{ option.charAt(0).toUpperCase() + option.slice(1) }}</span>
-                    <Icon 
-                      v-if="option === reasoningEffort" 
-                      icon="material-symbols:check" 
-                      width="16" 
-                      height="16" 
-                    />
-                  </DropdownMenuItem>
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenuRoot>
-
-            <!-- Divider (mobile only, when there are toggles) -->
-            <div v-if="isMobile && (supportsReasoning || shouldShowEffortSelector)" class="popover-divider"></div>
-
             <!-- Attach media button (both mobile and desktop) -->
             <button
               type="button"
@@ -654,35 +600,6 @@ defineExpose({ setMessage, toggleReasoning, setReasoningEffort, toggleSearch, $e
             </button>
           </PopoverContent>
         </PopoverRoot>
-
-
-
-        <!-- Desktop: Reasoning toggle for models that should show a reasoning toggle -->
-        <button v-if="!isMobile && selectedModel && shouldShowReasoningToggle && supportsReasoning"
-          type="button" class="feature-button reasoning-toggle-btn"
-          :class="{ 'reasoning-enabled': isReasoningEnabled }" @click="toggleReasoning"
-          :aria-label="isReasoningEnabled ? 'Disable reasoning' : 'Enable reasoning'">
-          <Icon icon="tabler:brain" width="22" height="22" />
-          <span class="reasoning-label">Reasoning</span>
-        </button>
-
-        <!-- Desktop: Reasoning effort dropdown for models that support reasoning effort -->
-        <DropdownMenuRoot v-if="!isMobile && selectedModel && shouldShowEffortSelector">
-          <DropdownMenuTrigger class="feature-button reasoning-toggle-btn">
-            <Icon icon="material-symbols:lightbulb" width="22" height="22" />
-            <span>{{ reasoningEffort.charAt(0).toUpperCase() + reasoningEffort.slice(1) }}</span>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent class="popover-dropdown reasoning-effort-dropdown" side="top" align="center"
-            :side-offset="8">
-            <div class="dropdown-scroll-container">
-              <DropdownMenuItem v-for="option in reasoningEffortOptions" :key="option" class="reasoning-effort-item"
-                :class="{ selected: option === reasoningEffort }" @click="() => setReasoningEffort(option)">
-                <span>{{ option.charAt(0).toUpperCase() + option.slice(1) }}</span>
-              </DropdownMenuItem>
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenuRoot>
 
         <!-- Right aligned actions -->
         <div class="right-actions">
@@ -721,7 +638,8 @@ defineExpose({ setMessage, toggleReasoning, setReasoningEffort, toggleSearch, $e
   background: var(--bg); 
   border-radius: 20px 20px 0 0;
   bottom: 0px;
-  width: 100%;
+  width: calc(100% + 48px);
+  margin-left: -24px;
   padding: 0;
   box-sizing: border-box;
   z-index: 10;
@@ -919,6 +837,8 @@ defineExpose({ setMessage, toggleReasoning, setReasoningEffort, toggleSearch, $e
 /* Mobile-specific styles */
 @media (max-width: 768px) {
   .input-section {
+    width: 100%;
+    margin-left: 0;
     max-width: 100%;
     padding: 8px 10px 0;
   }

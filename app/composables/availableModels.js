@@ -135,12 +135,6 @@ export function isReasoningEnabled(model, userEffort) {
   return userEffort !== 'none';
 }
 
-/**
- * Build API request parameters for reasoning
- * @param {Object} model - The model object
- * @param {Object} userSettings - User settings object with reasoning_effort
- * @returns {Object} { reasoningParams, alternateModel }
- */
 export function buildReasoningParams(model, userSettings) {
   const config = normalizeReasoningConfig(model);
   
@@ -149,7 +143,8 @@ export function buildReasoningParams(model, userSettings) {
   }
   
   const effort = userSettings?.reasoning_effort || config.effort?.default || 'default';
-  const isEnabled = effort !== 'none';
+  // Hardcode reasoning to true
+  const isEnabled = true;
   
   // Model routing: return alternate model when enabled
   if (config.alternateModel && isEnabled) {
@@ -162,7 +157,7 @@ export function buildReasoningParams(model, userSettings) {
   // Toggleable: send enabled flag
   if (config.toggleable) {
     return {
-      reasoningParams: { enabled: isEnabled },
+      reasoningParams: { enabled: true },
       alternateModel: null
     };
   }
