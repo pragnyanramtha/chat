@@ -600,6 +600,27 @@ body {
   opacity: 0.7;
 }
 
+/* Prevent any hover effects on reasoning area */
+.chat-widget:hover .chat-widget-details,
+.chat-widget:hover .reasoning-content-area,
+.chat-widget-details:hover,
+.reasoning-content-area:hover {
+  background: #000000 !important;
+}
+
+.dark .chat-widget:hover .chat-widget-details,
+.dark .chat-widget:hover .reasoning-content-area,
+.dark .chat-widget-details:hover,
+.dark .reasoning-content-area:hover {
+  background: #000000 !important;
+}
+
+/* Keep reasoning text dim even on hover */
+.reasoning-content-area:hover .reasoning-content,
+.chat-widget:hover .reasoning-content-area .reasoning-content {
+  color: #6e747a !important;
+}
+
 .chat-widget .reasoning-content-area .reasoning-content {
   color: var(--text-secondary);
   font-size:0.9rem;
