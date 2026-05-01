@@ -36,7 +36,7 @@
   --tooltip-bg: var(--elevated-surface);
   --tooltip-text: var(--text-primary);
   --bg-input: var(--elevated-surface);
-  --bg-sidebar: var(--surface);
+  --bg-sidebar: #000000;
   --text-placeholder: var(--text-muted);
   --shadow-default: 0 2px 8px var(--shadow-elev);
   --btn-model-selector-bg: var(--muted-border);
@@ -135,7 +135,7 @@
   --text-secondary-dark: var(--text-secondary);
   --reasoning-border-dark: var(--border);
   
-  --bg-sidebar: var(--surface);
+  --bg-sidebar: #000000;
   --bg-input: var(--elevated-surface);
   --text-placeholder: var(--text-muted);
   --shadow-default: 0 0 8px var(--shadow-elev);
