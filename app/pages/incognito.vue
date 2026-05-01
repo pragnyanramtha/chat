@@ -155,7 +155,7 @@ useHead({
   display: flex;
   flex-direction: column;
   flex: 1;
-  max-width: 700px;
+  max-width: 950px;
   width: 100%;
   margin: 0 auto;
   overflow: visible;    /* or just omit overflow entirely */

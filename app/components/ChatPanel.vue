@@ -579,7 +579,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   <div class="chat-wrapper" ref="chatWrapper">
     <div class="chat-container">
       <div v-if="messages.length < 1 && showWelcome" class="welcome-container">
-        <h1 v-if="!isIncognito" class="welcome-message">What do you need help with?</h1>
+        <h1 v-if="!isIncognito" class="welcome-message">HI</h1>
         <div v-else class="incognito-welcome">
           <h1 class="incognito-title">Incognito Mode</h1>
           <p class="incognito-description">
@@ -803,7 +803,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
 
 .chat-container {
   width: 100%;
-  max-width: 800px;
+  max-width: 950px;
   margin: 0 auto;
   padding: 12px;
   box-sizing: border-box;
@@ -816,7 +816,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   text-align: center;
   margin: calc(1rem + 10vh) 0;
   width: 100%;
-  max-width: 800px;
+  max-width: 950px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -857,7 +857,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
 .message {
   display: block;
   width: 100%;
-  max-width: 800px;
+  max-width: 950px;
   margin: 0 auto;
   position: relative;
   transition: all 0.3s cubic-bezier(.4, 1, .6, 1);
@@ -901,7 +901,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   white-space: pre-wrap;
   border-bottom-right-radius: 4px;
   margin-left: auto;
-  max-width: calc(800px * 0.85);
+  max-width: calc(950px * 0.85);
   width: fit-content;
   transition: all 0.3s cubic-bezier(.4, 1, .6, 1);
   text-align: left;
@@ -912,7 +912,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   padding: 0;
   color: var(--text-primary-light);
   width: 100%;
-  max-width: 800px;
+  max-width: 950px;
   margin: 0 auto;
   transition: all 0.3s cubic-bezier(.4, 1, .6, 1);
   border: 1px solid var(--border);
@@ -1365,14 +1365,14 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   gap: 8px;
   margin-bottom: 12px;
   width: 100%;
-  max-width: 800px;
+  max-width: 950px;
 }
 
 /* Reasoning Card Styles */
 .reasoning-card {
   margin-bottom: 12px;
   width: 100%;
-  max-width: 800px;
+  max-width: 950px;
   background: #000000;
   border-radius: 12px;
   padding: 2px;
