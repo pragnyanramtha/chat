@@ -905,7 +905,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   width: fit-content;
   transition: all 0.3s cubic-bezier(.4, 1, .6, 1);
   text-align: left;
-  /* Ensure text alignment within the bubble */
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .message.assistant .bubble {
@@ -915,6 +915,7 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   max-width: 800px;
   margin: 0 auto;
   transition: all 0.3s cubic-bezier(.4, 1, .6, 1);
+  border: 1px solid var(--border);
 }
 
 .dark .message.assistant .bubble {
