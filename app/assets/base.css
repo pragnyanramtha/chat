@@ -1,95 +1,40 @@
-/* Color variables (light + dark) — semantic tokens only.
-   Purpose: Drop these into your CSS (e.g., at the top of a globals file) and reference
-   the semantic tokens in your components. The comments next to each variable explain
-   what it's intended to be used for.
-
-   Notes:
-   - Contrast-conscious: text colors are full-strength; primary colors include hover/dark variants
-   - Light mode: refreshing and bright but comfortable for long reading
-   - Dark mode: deep, colorful, still readable; primary keeps visual pop against dark surfaces
+/* Pure Black Dark Theme - Libre Assistant
+   High contrast, minimal, pure black background
 */
 
 :root {
-  /* ----------------- LIGHT THEME (warmer + grayer) ----------------- */
-  /* Page & surfaces */
+  /* Light theme - keep original */
   --bg: #ebe7e2;
-  /* soft, neutral gray canvas */
   --surface: #dbd4d1;
-  /* cards, panels, app surfaces */
   --elevated-surface: #e6dfdc;
-  /* slightly tinted surface for grouped panels/inputs */
-
-  /* Text */
   --text-primary: #3a2119;
-  /* strong, neutral dark (gray-black) */
   --text-secondary: #63564b;
-  /* neutral secondary */
   --text-muted: #80716b;
-  /* placeholders, disabled labels */
-
-  /* Borders & dividers */
   --border: #cabdb6;
-  /* clean gray divider */
   --muted-border: #e6e7e8;
-  /* very light grouping divider */
-
-  /* Primary (brand / main CTA) — warm, readable */
   --primary: #c04a2c;
-  /* warm burnt-sienna (use sparingly for CTAs) */
   --primary-foreground: #ffffff;
-  /* text/icon color when placed on --primary */
   --primary-600: #9b3d23;
-  /* hover / active */
   --primary-800: #6f2a18;
-  /* pressed/strong state */
-
-  /* Secondary / supporting accent */
   --secondary: #b38b3b;
-  /* desaturated warm mustard */
   --secondary-600: #8f6d2e;
-  /* hover/darker */
-
-  /* Accent colors (use sparingly for highlights) */
   --accent-warm: #f59e0b;
-  /* lively warm accent */
   --accent-soft: #d6a95a;
-  /* softer warm highlight */
-
-  /* Feedback / semantic statuses */
   --success: #15803d;
-  /* success states (slightly muted green) */
   --warning: #b45309;
-  /* warm warning */
   --danger: #b91c1c;
-  /* error (stronger, desaturated red) */
   --info: #0f766e;
-  /* muted teal/info */
-
-  /* Shadows & focus rings */
   --shadow-elev: rgba(2, 6, 23, 0.06);
-  /* subtle soft shadow */
-  --focus-ring: rgba(192,
-      74,
-      44,
-      0.12);
-  /* warmer focus ring tinted with primary */
-
-  /* Component-specific variables */
+  --focus-ring: rgba(192, 74, 44, 0.12);
   --bg-primary: var(--surface);
   --bg-secondary: var(--elevated-surface);
   --bg-tertiary: var(--muted-border);
-
   --btn-hover: hsla(16, 13%, 72%, 0.5);
   --btn-hover-2: hsla(17, 100%, 96%, 0.6);
-
-  /* Parameter config panel */
   --panel-bg: var(--bg-primary);
   --panel-input-bg: var(--bg-input);
   --tooltip-bg: var(--elevated-surface);
   --tooltip-text: var(--text-primary);
-
-
-  /* Message form colors */
   --bg-input: var(--elevated-surface);
   --bg-sidebar: var(--surface);
   --text-placeholder: var(--text-muted);
@@ -109,124 +54,87 @@
   --popover-list-item-text: var(--text-primary);
   --popover-list-item-selected-bg: var(--border);
   --popover-list-item-selected-text: var(--text-primary);
-
-  /* Welcome overlay */
   --text-light: var(--text-primary);
   --text-dark: var(--text-primary);
-
-  /* App-specific colors */
   --color-bubble-user-bg: var(--primary);
   --color-bubble-user-text: var(--primary-foreground);
-
-  /* Spacing */
   --spacing-4: 4px;
-  --spacing-8: 8px;
+  --spacing-8:8px;
   --spacing-12: 12px;
   --spacing-16: 16px;
   --spacing-24: 24px;
   --section-gap: 160px;
-
-  /* Borders */
   --border-radius: 12px;
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
-
-  /* Shadows */
   --shadow-sm: 0 1px 2px 0 var(--shadow-elev);
-  --shadow-md:
-    0 4px 6px -1px var(--shadow-elev), 0 2px 4px -1px var(--shadow-elev);
-  --shadow-lg:
-    0 10px 15px -3px var(--shadow-elev), 0 4px 6px -2px var(--shadow-elev);
-  --shadow-xl:
-    0 20px 25px -5px var(--shadow-elev), 0 10px 10px -5px var(--shadow-elev);
-
-  /* Fonts */
-  --font:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-
+  --shadow-md: 0 4px 6px -1px var(--shadow-elev), 0 2px 4px -1px var(--shadow-elev);
+  --shadow-lg: 0 10px 15px -3px var(--shadow-elev), 0 4px 6px -2px var(--shadow-elev);
+  --shadow-xl: 0 20px 25px -5px var(--shadow-elev), 0 10px 10px -5px var(--shadow-elev);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   scrollbar-color: #b4ab9e transparent;
 }
 
-/* ----------------- DARK THEME (deep, warm, grayer) ----------------- */
 .dark {
   color-scheme: dark;
-
-  /* Page & surfaces */
-  --bg: #1c1919;
-  /* deep neutral background (very dark gray) */
-  --surface: #131110;
-  /* main surface for cards/panels */
-  --elevated-surface: #22201e;
-  /* slightly lighter elevated surface */
-
-  /* Text */
-  --text-primary: #e6e6e7;
-  /* light, neutral text */
+  
+  /* Pure black theme - #000000 background */
+  --bg: #000000;
+  --surface: #111111;
+  --elevated-surface: #1a1a1a;
+  
+  /* Text - pure white for max contrast */
+  --text-primary: #ffffff;
   --text-secondary: #a3a3a6;
-  /* desaturated secondary */
   --text-muted: #737373;
-  /* muted labels */
-
-  /* Borders & dividers */
-  --border: rgba(230, 230, 230, 0.06);
-  /* subtle divider on dark */
-  --muted-border: rgba(230, 230, 230, 0.04);
-
-  /* Primary (warm, visible on dark surfaces) */
-  --primary: #e06a3a;
-  /* warm orange that pops on dark */
+  
+  /* Borders - subtle */
+  --border: rgba(255, 255, 255, 0.08);
+  --muted-border: rgba(255, 255, 255, 0.05);
+  
+  /* Primary - blue (clean, modern) */
+  --primary: #3b82f6;
   --primary-foreground: #ffffff;
-  /* always white on dark primary */
-  --primary-600: #b34e2b;
-  /* hover/darker */
-  --primary-800: #7a321d;
-  /* pressed/strong */
-
-  /* Secondary supporting accent */
-  --secondary: #9e7a3a;
-  /* muted golden-olive */
-  --secondary-600: #7f6130;
-
-  /* Accents & feedback */
+  --primary-600: #2563eb;
+  --primary-800: #1d4ed8;
+  
+  /* Secondary */
+  --secondary: #a3a3a3;
+  --secondary-600: #737373;
+  
+  /* Accents */
   --accent-warm: #f59e0b;
-  /* warm accent */
-  --accent-soft: #f3dfa6;
-  /* softer warm highlight */
-
+  --accent-soft: #fbbf24;
+  
   --success: #34d399;
   --warning: #f59e0b;
   --danger: #f87171;
-  --info: #60f0f0;
-
-  /* Shadows & focus */
-  --shadow-elev: rgba(2, 6, 23, 0.15);
-  --focus-ring: rgba(224, 106, 58, 0.14);
-  /* warmer focus */
-
-  /* Component-specific variables for dark mode */
+  --info: #22d3ee;
+  
+  /* Shadows */
+  --shadow-elev: rgba(0, 0, 0, 0.4);
+  --focus-ring: rgba(59, 130, 246, 0.3);
+  
+  /* Component variables */
   --bg-primary: var(--surface);
   --bg-secondary: var(--elevated-surface);
   --bg-tertiary: var(--muted-border);
-
-  --btn-hover: hsla(15, 6%, 27%, 0.4);
-  --btn-hover-2: hsla(15, 6%, 27%, 0.4);
-
-  /* Parameter config panel */
+  
+  /* User message bubble - pure black #000000 */
+  --color-bubble-user-bg: #000000;
+  --color-bubble-user-text: #ffffff;
+  
   --panel-bg: var(--bg-primary);
   --panel-input-bg: var(--bg-input);
   --tooltip-bg: var(--elevated-surface);
   --tooltip-text: var(--text-primary);
-
-
-  /* Chat panel colors for dark mode */
+  
   --text-primary-dark: var(--text-primary);
   --text-secondary-dark: var(--text-secondary);
   --reasoning-border-dark: var(--border);
-
-  /* Message form dark colors */
+  
   --bg-sidebar: var(--surface);
   --bg-input: var(--elevated-surface);
   --text-placeholder: var(--text-muted);
@@ -239,15 +147,14 @@
   --btn-send-disabled-bg: var(--border);
   --popover-bg: var(--surface);
   --popover-border: var(--border);
-  --popover-shadow: 0 8px 30px var(--shadow-elev);
+  --popover-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
   --popover-list-item-bg-hover: var(--muted-border);
   --popover-list-item-text: var(--text-primary);
   --popover-list-item-selected-bg: var(--border);
   --popover-list-item-selected-text: var(--text-primary);
-
-  scrollbar-color: #54514d transparent;
+  
+  scrollbar-color: #333 transparent;
 }
-
 
 *,
 *::before,
@@ -257,7 +164,6 @@
   font-weight: normal;
 }
 
-
 body {
   min-height: 100dvh;
   height: 100dvh;
@@ -266,23 +172,9 @@ body {
   padding: 0;
   color: var(--text-primary);
   background: var(--bg);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
+  transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: var(--font);
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -375,10 +267,7 @@ body {
   background: none;
   color: var(--popover-list-item-text);
   cursor: pointer;
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    border-color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
   font-size: 0.95rem;
   border-radius: 6px;
   margin-bottom: 2px;
@@ -458,7 +347,6 @@ body {
     opacity: 0;
     transform: scale(0.95) translateY(-5px);
   }
-
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -489,7 +377,7 @@ body {
   gap: 12px;
 }
 
-/* --- SIDEBAR TOGGLE --- */
+/* Sidebar toggle */
 .sidebar-toggle {
   display: inline-flex;
   align-items: center;
@@ -509,7 +397,7 @@ body {
   background: var(--btn-hover);
 }
 
-/* --- MODEL SELECTOR --- */
+/* Model selector */
 .model-selector-btn {
   display: inline-flex;
   align-items: center;
@@ -548,9 +436,7 @@ body {
   flex-shrink: 0;
 }
 
-/* ================================================
-   ChatWidget Styles (unified reasoning + tool widget)
-   ================================================ */
+/* Chat Widget Styles */
 .chat-widget {
   position: relative;
   margin: 0;
@@ -874,17 +760,4 @@ body {
 .memory-diff-new p {
   color: var(--text-primary);
   font-weight: 500;
-}
-/* ----------------- EXTRA DARK THEME OVERRIDES ----------------- */
-.dark {
-  --bg: #000000 !important;
-  --surface: #0a0a0a !important;
-  --elevated-surface: #111111 !important;
-  --bg-primary: var(--surface) !important;
-  --bg-secondary: var(--elevated-surface) !important;
-  --border: rgba(255, 255, 255, 0.08) !important;
-  --text-primary: #ffffff !important;
-  --text-secondary: #a3a3a6 !important;
-  --primary: #ff6b35 !important;
-  --primary-600: #e55a2b !important;
 }
