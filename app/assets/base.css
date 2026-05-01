@@ -85,9 +85,9 @@
   --surface: #111111;
   --elevated-surface: #000000;
   
-  /* Hover effects - subtle on pure black */
-  --btn-hover: rgba(255, 255, 255, 0.05);
-  --btn-hover-2: rgba(255, 255, 255, 0.08);
+  /* Hover effects - pure black */
+  --btn-hover: #000000;
+  --btn-hover-2: #000000;
   
   /* Text - pure white for max contrast */
   --text-primary: #ffffff;
@@ -239,9 +239,17 @@ body {
   background: var(--btn-hover);
 }
 
+.dark .conversation-menu-item:hover {
+  background: #605956;
+}
+
 .conversation-menu-item:focus {
   outline: none;
   background: var(--btn-hover);
+}
+
+.dark .conversation-menu-item:focus {
+  background: #605956;
 }
 
 .conversation-menu-item.delete-item {
@@ -282,10 +290,18 @@ body {
   background-color: var(--btn-hover);
 }
 
+.dark .model-list-item:hover {
+  background-color: #605956;
+}
+
 .model-list-item.selected {
   background-color: var(--btn-hover);
   color: var(--popover-list-item-selected-text);
   font-weight: 500;
+}
+
+.dark .model-list-item.selected {
+  background-color: #605956;
 }
 
 .model-info {
@@ -325,6 +341,10 @@ body {
 
 .category-item:hover {
   background-color: var(--btn-hover);
+}
+
+.dark .category-item:hover {
+  background-color: #605956;
 }
 
 .submenu-icon {
@@ -401,6 +421,10 @@ body {
   background: var(--btn-hover);
 }
 
+.dark .sidebar-toggle:hover {
+  background: #605956;
+}
+
 /* Model selector */
 .model-selector-btn {
   display: inline-flex;
@@ -421,6 +445,10 @@ body {
 
 .model-selector-btn:hover {
   background: var(--btn-hover);
+}
+
+.dark .model-selector-btn:hover {
+  background: #605956;
 }
 
 .model-name-display {
@@ -471,7 +499,7 @@ body {
 }
 
 .dark .chat-widget-header:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #605956;
 }
 
 .chat-widget-header.open {
@@ -479,7 +507,7 @@ body {
 }
 
 .dark .chat-widget-header.open {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: #605956;
 }
 
 .chat-widget-icon {
@@ -567,9 +595,9 @@ body {
 }
 
 .chat-widget .reasoning-content-area .reasoning-content {
-  color: var(--text-secondary);
+  color: #6e747a;
   font-size:0.9rem;
-  opacity: 0.85;
+  opacity: 0.7;
 }
 
 .chat-widget .reasoning-content-area .reasoning-content {
@@ -613,7 +641,7 @@ body {
 }
 
 .dark .chat-widget .search-result-item:hover {
-  background: #000000;
+  background: #605956;
   border-color: var(--primary);
 }
 
@@ -662,7 +690,7 @@ body {
 }
 
 .dark .chat-widget .web-crawl-result-item:hover {
-  background: #000000;
+  background: #605956;
   border-color: var(--primary);
 }
 

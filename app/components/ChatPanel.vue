@@ -961,6 +961,10 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
   color: var(--text-primary);
 }
 
+.dark .copy-button:hover {
+  background: #605956;
+}
+
 .footer-left-actions {
   display: flex;
   align-items: center;
@@ -985,6 +989,10 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
 .footer-action-btn:hover {
   background: var(--btn-hover);
   color: var(--text-primary);
+}
+
+.dark .footer-action-btn:hover {
+  background: #605956;
 }
 
 .branch-navigation {
