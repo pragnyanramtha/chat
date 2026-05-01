@@ -4,12 +4,17 @@ import OpenAI from 'openai';
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
+  // Get runtime config
+  const runtimeConfig = useRuntimeConfig(event);
+
   // Extract custom API key from body (user-provided)
   const customApiKey = body.customApiKey;
   delete body.customApiKey; // Remove from body before passing to OpenAI
 
-  // Require user to provide their own API key
-  if (!customApiKey) {
+  // Use custom API key from request, or fall back to environment variable
+  const apiKey = customApiKey || runtimeConfig.hackclubApiKey;
+
+  if (!apiKey) {
     event.node.res.statusCode = 401;
     event.node.res.setHeader('Content-Type', 'application/json');
     event.node.res.end(JSON.stringify({
@@ -21,8 +26,6 @@ export default defineEventHandler(async (event) => {
     }));
     return;
   }
-
-  const apiKey = customApiKey;
 
   const openai = new OpenAI({
     apiKey: apiKey || '',

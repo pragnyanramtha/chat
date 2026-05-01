@@ -16,6 +16,7 @@ import {
   buildSiblingInfoMap,
   calculateBranchPath
 } from './branchManager';
+import { useServerConfig } from './useServerConfig';
 
 /**
  * Creates a centralized message manager for handling all chat message operations
@@ -29,6 +30,9 @@ export function useMessagesManager(chatPanel) {
 
   // Use global incognito state
   const { isIncognito, toggleIncognito: globalToggleIncognito } = useGlobalIncognito();
+
+  // Use server config
+  const { serverConfig, fetchConfig } = useServerConfig();
 
   // Initialize router for navigation
   const router = useRouter();
@@ -74,9 +78,10 @@ export function useMessagesManager(chatPanel) {
     }
   };
 
-  onMounted(() => {
+  onMounted(async () => {
     emitter.on('conversationTitleUpdated', handleTitleUpdate);
     emitter.on('conversationDeleted', handleConversationDeleted);
+    await fetchConfig();
   });
 
   onUnmounted(() => {
@@ -186,8 +191,10 @@ export function useMessagesManager(chatPanel) {
 
     if ((!message.trim() && attachments.length === 0) || isLoading.value) return;
 
-    // Check if API key is provided
-    if (!settingsManager.settings.custom_api_key) {
+    // Check if API key is provided (either user-provided or server-side)
+    const hasApiKey = settingsManager.settings.custom_api_key || (serverConfig.value && serverConfig.value.hasServerApiKey);
+
+    if (!hasApiKey) {
       const tempAssistantMsg = createAssistantMessage();
       updateAssistantMessage(tempAssistantMsg, {
         content: `⚠️ **API Key Required**\n\nPlease add your own API key in Settings → General to use models.`,

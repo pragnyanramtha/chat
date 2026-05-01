@@ -20,7 +20,7 @@
       :class="{ 'sidebar-open': sidebarOpen, 'parameter-config-open': parameterConfigPanelOpen }">
       <TopBar :is-scrolled-top="isScrolledTop" :selected-model-name="selectedModelName"
         :selected-model-id="selectedModelId" :toggle-sidebar="toggleSidebar" :sidebar-open="sidebarOpen"
-        :is-incognito="isIncognito" :show-incognito-button="!route.params.id && messages.length === 0" :messages="messages"
+        :is-incognito="isIncognito" :show-incognito-button="true" :messages="messages"
         :parameter-config-open="parameterConfigPanelOpen" @model-selected="handleModelSelect"
         @toggle-incognito="toggleIncognito"
         @toggle-parameter-config="parameterConfigPanelOpen = !parameterConfigPanelOpen" />

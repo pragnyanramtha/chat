@@ -77,6 +77,7 @@ export default defineNuxtConfig({
     // Private config that only the server can access
     hackclubSearchApiKey: '',
     sessionSecret: '',
+    hackclubApiKey: '',
     // Public config that is exposed to the client
     public: {}
   }
