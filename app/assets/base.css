@@ -56,8 +56,8 @@
   --popover-list-item-selected-text: var(--text-primary);
   --text-light: var(--text-primary);
   --text-dark: var(--text-primary);
-  --color-bubble-user-bg: var(--primary);
-  --color-bubble-user-text: var(--primary-foreground);
+  --bubble-user-bg: var(--primary);
+  --bubble-user-text: var(--primary-foreground);
   --spacing-4: 4px;
   --spacing-8:8px;
   --spacing-12: 12px;
@@ -123,8 +123,8 @@
   --bg-tertiary: var(--muted-border);
   
   /* User message bubble - pure black #000000 */
-  --color-bubble-user-bg: #000000;
-  --color-bubble-user-text: #ffffff;
+  --bubble-user-bg: #000000;
+  --bubble-user-text: #ffffff;
   
   --panel-bg: var(--bg-primary);
   --panel-input-bg: var(--bg-input);

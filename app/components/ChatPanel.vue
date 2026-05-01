@@ -789,8 +789,6 @@ defineExpose({ scrollToEnd, isAtBottom, chatWrapper });
 
 <style>
 .chat-wrapper {
-  --bubble-user-bg: var(--primary);
-  --bubble-user-text: var(--primary-foreground);
   --text-primary-light: var(--text-primary);
   --text-secondary-light: var(--text-secondary);
   --text-primary-dark: var(--text-primary);
