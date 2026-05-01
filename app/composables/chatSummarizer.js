@@ -152,7 +152,7 @@ Guidelines:
             content: `Here is the conversation to summarize:\n\n${formatMessagesForSummary(relevantMessages)}`
           }
         ],
-        stream: false,
+        stream: true,
       })
     });
 
@@ -160,8 +160,7 @@ Guidelines:
       throw new Error(`Summary request failed: ${response.status}`);
     }
 
-    const data = await response.json();
-    const summary = data.choices?.[0]?.message?.content?.trim();
+    const summary = await accumulateStream(response);
 
     if (summary === "NOTHING_NOTABLE") {
       return null;
@@ -229,7 +228,7 @@ Guidelines:
             content: `Existing summary:\n${existingSummary}\n\nNew messages:\n${formatMessagesForSummary(relevantMessages)}\n\nUpdated summary:`
           }
         ],
-        stream: false,
+        stream: true,
       })
     });
 
@@ -237,8 +236,7 @@ Guidelines:
       throw new Error(`Incremental summary request failed: ${response.status}`);
     }
 
-    const data = await response.json();
-    const summary = data.choices?.[0]?.message?.content?.trim();
+    const summary = await accumulateStream(response);
 
     if (summary === "NOTHING_NOTABLE") {
       return null;
@@ -323,6 +321,52 @@ function formatMessagesForSummary(messages) {
   return messages
     .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
     .join('\n\n');
+}
+
+/**
+ * Reads a streaming SSE response from /api/ai and accumulates all content deltas
+ * into a single string. Handles `data: [DONE]` termination.
+ * @param {Response} response - A fetch Response with a streaming body
+ * @returns {Promise<string>} Accumulated text content
+ */
+async function accumulateStream(response) {
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let accumulated = '';
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop(); // keep incomplete last line
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6);
+        if (data === '[DONE]') break;
+
+        let parsed;
+        try { parsed = JSON.parse(data); } catch { continue; }
+
+        if (parsed.error) {
+          throw new Error(parsed.error.message || 'Stream error');
+        }
+
+        const delta = parsed.choices?.[0]?.delta;
+        if (delta?.content) {
+          accumulated += delta.content;
+        }
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  return accumulated.trim();
 }
 
 /**

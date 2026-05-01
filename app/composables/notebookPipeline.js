@@ -421,7 +421,7 @@ Write the updated Notebook content.`;
             content: consolidationPrompt
           },
         ],
-        stream: false,
+        stream: true,
         temperature: 0.2, // Low temperature for consistency
         max_tokens: 3000,
       })
@@ -431,8 +431,7 @@ Write the updated Notebook content.`;
       throw new Error(`Consolidation request failed: ${response.status}`);
     }
 
-    const data = await response.json();
-    const newContent = data.choices?.[0]?.message?.content?.trim();
+    const newContent = (await accumulateStreamPipeline(response)).trim();
 
     if (!newContent) {
       throw new Error("Empty consolidation response");
@@ -543,4 +542,50 @@ export async function forceRunPipeline() {
   // Reset state to allow run
   await savePipelineState({ status: "idle", lastRun: null, lastError: null });
   return runNotebookPipeline();
+}
+
+/**
+ * Reads a streaming SSE response from /api/ai and accumulates all content deltas.
+ * Local copy used so notebookPipeline.js stays self-contained.
+ * @param {Response} response - A fetch Response with streaming body
+ * @returns {Promise<string>} Accumulated text content
+ */
+async function accumulateStreamPipeline(response) {
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let accumulated = '';
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6);
+        if (data === '[DONE]') break;
+
+        let parsed;
+        try { parsed = JSON.parse(data); } catch { continue; }
+
+        if (parsed.error) {
+          throw new Error(parsed.error.message || 'Stream error');
+        }
+
+        const delta = parsed.choices?.[0]?.delta;
+        if (delta?.content) {
+          accumulated += delta.content;
+        }
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  return accumulated.trim();
 }
